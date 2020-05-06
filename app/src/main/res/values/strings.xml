@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">AD340App</string>
-    <string name="hello_world">Hello World!\nBezorudko, Allison 4/28/2020</string>
-    <string name="second_activity">Go to Assignment 2 form</string>
+    <string name="welcome">Welcome!</string>
     <string name="submit">SUBMIT</string>
+    <string name="emailHint">Email</string>
+    <string name="nameHint">Name</string>
+    <string name="usernameHint">Username</string>
+    <string name="dobHint">Select date of birth</string>
+    <string name="userOccupationHint">Occupation</string>
+    <string name="userDescriptionHint">Describe yourself</string>
 </resources>

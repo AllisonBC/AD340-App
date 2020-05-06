@@ -1,18 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/welcome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome" />
+
+    <EditText
+        android:id="@+id/user_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/emailHint"
+        android:inputType="textEmailAddress"
+        android:layout_below="@+id/welcome"/>
+
+    <EditText
+        android:id="@+id/user_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/nameHint"
+        android:inputType="textPersonName"
+        android:layout_below="@+id/user_email" />
+
+    <EditText
+        android:id="@+id/user_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/usernameHint"
+        android:inputType="textPersonName"
+        android:layout_below="@+id/user_name" />
+
+    <EditText
+        android:id="@+id/user_occupation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/userOccupationHint"
+        android:inputType="textPersonName"
+        android:layout_below="@+id/user_username" />
+
+    <EditText
+        android:id="@+id/user_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/userDescriptionHint"
+        android:inputType="textPersonName"
+        android:layout_below="@+id/user_occupation" />
+
+    <TextView
+        android:id="@+id/user_dob"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/dobHint"
+        android:layout_below="@+id/user_description"/>
+
+    <Button
+        android:id="@+id/goToSecondActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:text="@string/submit"
+        android:onClick="goToSecondActivity"
+        android:layout_below="@+id/user_dob"/>
+
+</RelativeLayout>

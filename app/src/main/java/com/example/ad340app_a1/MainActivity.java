@@ -1,58 +1,71 @@
 package com.example.ad340app_a1;
 
-import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
+import android.app.DatePickerDialog;
 import android.content.Intent;
-import androidx.annotation.NonNull;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.DatePicker;
 import android.widget.TextView;
-
-import java.util.Objects;
+import androidx.appcompat.app.AppCompatActivity;
+import java.util.Calendar;
 
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    private Button submitButton;
-    private EditText editText;
-    private TextView textView;
+    private TextView dateDisplay;
+    private DatePickerDialog.OnDateSetListener dateSetListener;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-/*        submitButton = findViewById(R.id.submitButton);
-        editText = findViewById(R.id.nameEditText);
-        textView = findViewById(R.id.textView);
-        TextView userName = findViewById(R.id.userName);
+        dateDisplay = findViewById(R.id.user_dob);
+        dateDisplay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
 
-        userName.setText(getString(R.string.example_user_name));
+                DatePickerDialog dialog = new DatePickerDialog(
+                        MainActivity.this,
+                        android.R.style.Widget_Holo_ActionBar_Solid,
+                        dateSetListener, year, month, day);
+                dialog.show();
+            }
+        });
 
-        User user = new User();
-        user.setEmail(Objects.requireNonNull(getString(R.string.example_user_email)));
-        user.setFirstName(Objects.requireNonNull(getString(R.string.example_user_first_name)));
-        user.setLastName(Objects.requireNonNull(getString(R.string.example_user_last_name)));
-        user.setUserName(Objects.requireNonNull(getString(R.string.example_user_name)));
-        user.setDOB(Objects.requireNonNull(getString(R.string.example_user_dob)));
+        dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
+                Log.d(TAG, "onDateSet() date: " + month + day + year);
 
-
-        new SetUserTask(this, user).execute();*/
-
+                String date = month + "/" + day + "/" + "year";
+                dateDisplay.setText(date);
+            }
+        };
 
         Log.i(TAG, "onCreate()");
     }
 
+
     public void goToSecondActivity(View view) {
         Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-        intent.putExtra(Constants.KEY_NAME, editText.getText().toString());
-        intent.putExtra(Constants.KEY_DOB, 1989);
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.KEY_NAME, "Joe Exotic");
+        bundle.putString(Constants.KEY_OCCUPATION, "The Tiger King");
+        bundle.putString(Constants.KEY_EMAIL, "kingojungle@tigerlvr.com");
+        bundle.putInt(Constants.KEY_AGE, 50);
+        bundle.putString(Constants.KEY_DESCRIPTION, "Love tigers and guns; did not kill Carole Baskins");
+        intent.putExtras(bundle);
         startActivity(intent);
     }
-
 
 
     @Override
@@ -67,28 +80,28 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "onStart()");
     }
 
-    @Override
-    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-
-        Log.i(TAG, "onRestoreInstanceState()");
-        if (savedInstanceState.containsKey(Constants.KEY_NAME)) {
-            textView.setText((String)savedInstanceState.get(Constants.KEY_NAME));
-        }
-
-        if (savedInstanceState.containsKey(Constants.KEY_BUTTON_TXT)) {
-            submitButton.setText((String) savedInstanceState.get(Constants.KEY_BUTTON_TXT));
-        }
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        Log.i(TAG, "onSaveInstanceState()");
-        outState.putString(Constants.KEY_NAME, textView.getText().toString());
-        outState.putString(Constants.KEY_BUTTON_TXT, submitButton.getText().toString());
-    }
+//    @Override
+//    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+//        super.onRestoreInstanceState(savedInstanceState);
+//
+//        Log.i(TAG, "onRestoreInstanceState()");
+//        if (savedInstanceState.containsKey(Constants.KEY_NAME)) {
+//            textView.setText((String)savedInstanceState.get(Constants.KEY_NAME));
+//        }
+//
+//        if (savedInstanceState.containsKey(Constants.KEY_BUTTON_TXT)) {
+//            submitButton.setText((String) savedInstanceState.get(Constants.KEY_BUTTON_TXT));
+//        }
+//    }
+//
+//    @Override
+//    public void onSaveInstanceState(@NonNull Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//
+//        Log.i(TAG, "onSaveInstanceState()");
+//        outState.putString(Constants.KEY_NAME, textView.getText().toString());
+//        outState.putString(Constants.KEY_BUTTON_TXT, submitButton.getText().toString());
+//    }
 
     @Override
     protected void onResume() {
