@@ -8,4 +8,7 @@
     <string name="dobHint">Select date of birth</string>
     <string name="userOccupationHint">Occupation</string>
     <string name="userDescriptionHint">Describe yourself</string>
+    <string name="matches">Matches</string>
+    <string name="settings">Settings</string>
+    <string name="profile">Profile</string>
 </resources>

@@ -7,8 +7,19 @@ import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.tabs.TabLayout;
+
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -23,6 +34,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Adding Toolbar to Main screen
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        // Setting ViewPager for each Tab
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
+
+        // Set Tabs inside Toolbar
+        TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
+        tabs.setupWithViewPager(viewPager);
+
+        // Adding Date dialog picker
         dateDisplay = findViewById(R.id.user_dob);
         dateDisplay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +79,49 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
+
+        // Add Fragments to Tabs
+        private void setupViewPager(ViewPager viewPager) {
+            Adapter adapter = new Adapter(getSupportFragmentManager());
+            adapter.addFragment(new ProfileActivityFragment(), "Profile");
+            adapter.addFragment(new MatchesActivityFragment(), "Matches");
+            adapter.addFragment(new SettingsActivityFragment(), "Settings");
+            viewPager.setAdapter(adapter);
+        }
+
+        static class Adapter extends FragmentPagerAdapter {
+            private final List<Fragment> mFragmentList = new ArrayList<>();
+            private final List<String> mFragmentTitleList = new ArrayList<>();
+
+            public Adapter(FragmentManager manager) {
+                super(manager);
+            }
+
+            @Override
+            public Fragment getItem(int position) {
+                return mFragmentList.get(position);
+            }
+
+            @Override
+            public int getCount() {
+                return mFragmentList.size();
+            }
+
+            public void addFragment(Fragment fragment, String title) {
+                mFragmentList.add(fragment);
+                mFragmentTitleList.add(title);
+            }
+
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return mFragmentTitleList.get(position);
+            }
+        }
+
+
+
+
     public void goToSecondActivity(View view) {
         Intent intent = new Intent(MainActivity.this, SecondActivity.class);
         Bundle bundle = new Bundle();
@@ -62,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
         bundle.putString(Constants.KEY_OCCUPATION, "The Tiger King");
         bundle.putString(Constants.KEY_EMAIL, "kingojungle@tigerlvr.com");
         bundle.putInt(Constants.KEY_AGE, 50);
-        bundle.putString(Constants.KEY_DESCRIPTION, "Love tigers and guns; did not kill Carole Baskins");
+        bundle.putString(Constants.KEY_DESCRIPTION, "Loves tigers and guns; did not kill Carole Baskins");
         intent.putExtras(bundle);
         startActivity(intent);
     }

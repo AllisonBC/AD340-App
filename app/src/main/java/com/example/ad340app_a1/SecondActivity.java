@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-
+// display tabs; hook up view pager
 public class SecondActivity extends AppCompatActivity {
 
     private static final String TAG = SecondActivity.class.getSimpleName();

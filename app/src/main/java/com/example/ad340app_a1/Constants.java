@@ -8,6 +8,6 @@ public class Constants {
     static final String KEY_OCCUPATION = "occupation";
     static final String KEY_DESCRIPTION = "description";
 
-    static final String KEY_BUTTON_TXT = "button_txt";
-    static final String KEY_TEXTVIEW_TEXT = "txtv_text";
+    static final String KEY_BUTTON_TXT = "submit";
+
 }
