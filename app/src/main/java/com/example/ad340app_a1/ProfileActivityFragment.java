@@ -1,11 +1,13 @@
 package com.example.ad340app_a1;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -14,6 +16,66 @@ import androidx.fragment.app.Fragment;
 // Provides UI for view with Profile
 public class ProfileActivityFragment extends Fragment {
     private static final String TAG = MainActivity.class.getSimpleName();
+//    private TextView ageDisplay;
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.frag_profile, container, false);
+        super.onCreate(savedInstanceState);
+        TextView profileText = view.findViewById(R.id.profile_text);
+
+        StringBuilder msg = new StringBuilder("WELCOME \n");
+        Intent intent = getActivity().getIntent();
+        Bundle b = intent.getExtras();
+
+        String name = "Example name";
+        int age = 30;
+        String occupation = "Occupation";
+        String description = "Description";
+//        ImageView userPhoto = findViewById(R.drawable.profile);
+
+
+        if (b != null) {
+            if (b.containsKey(Constants.KEY_NAME)) {
+                name = b.getString(Constants.KEY_NAME);
+            }
+            if (b.containsKey(Constants.KEY_AGE)) {
+                age = b.getInt(Constants.KEY_AGE);
+            }
+            if (b.containsKey(Constants.KEY_OCCUPATION)) {
+                occupation = b.getString(Constants.KEY_OCCUPATION);
+            }
+            if (b.containsKey(Constants.KEY_DESCRIPTION)) {
+                description = b.getString(Constants.KEY_DESCRIPTION);
+            }
+        }
+
+        msg.append(name).append(", ");
+        Log.i(TAG, new StringBuilder("Name: ").append(name).toString());
+
+        msg.append(age).append(" years old\n");
+        Log.i(TAG, new StringBuilder("Age: ").append(age).toString());
+
+        msg.append(occupation).append("\n");
+        msg.append(description).append("\n");
+        profileText.setText(msg);
+
+        Log.i(TAG, "onCreate()");
+        return view;
+    }
+
+//    @Override
+//    public void onSaveInstanceState(@NonNull Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//
+//        outState.putString(Constants.KEY_NAME, name);
+//        outState.putString(Constants.KEY_TEXTVIEW_TEXT, textView.getText().toString());
+//
+//    }
+
+
 
     @Override
     public void onAttach(Context context) {
@@ -25,14 +87,6 @@ public class ProfileActivityFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i(TAG, "onCreate()");
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        Log.i(TAG, "onCreateView()");
-
-        return inflater.inflate(R.layout.frag_profile, null);
     }
 
     @Override

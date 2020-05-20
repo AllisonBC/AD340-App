@@ -1,63 +1,84 @@
 package com.example.ad340app_a1;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.tabs.TabLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 // display tabs; hook up view pager
 public class SecondActivity extends AppCompatActivity {
-
     private static final String TAG = SecondActivity.class.getSimpleName();
-    TextView textView;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
-        textView = findViewById(R.id.textView);
 
-        StringBuilder msg = new StringBuilder("WELCOME \n");
-        Intent intent = getIntent();
-        Bundle b = intent.getExtras();
+        // Adding Toolbar to Main screen
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        String name = "Example name";
-        int age = 30;
-        String occupation = "Occupation";
-        String description = "Description";
+        // Setting ViewPager for each Tab
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
 
-
-        if (b != null) {
-            if (b.containsKey(Constants.KEY_NAME)) {
-                name = b.getString(Constants.KEY_NAME);
-            }
-            if (b.containsKey(Constants.KEY_AGE)) {
-                age = b.getInt(Constants.KEY_AGE);
-            }
-            if (b.containsKey(Constants.KEY_OCCUPATION)) {
-                occupation = b.getString(Constants.KEY_OCCUPATION);
-            }
-            if (b.containsKey(Constants.KEY_DESCRIPTION)) {
-                description = b.getString(Constants.KEY_DESCRIPTION);
-            }
-
-        }
-
-        msg.append(name).append(", ");
-        Log.i(TAG, new StringBuilder("Name: ").append(name).toString());
-
-        msg.append(age).append(" years old\n");
-        Log.i(TAG, new StringBuilder("Age: ").append(age).toString());
-
-        msg.append(occupation).append("\n");
-        msg.append(description).append("\n");
-        textView.setText(msg);
+        // Set Tabs inside Toolbar
+        TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
+        tabs.setupWithViewPager(viewPager);
 
         Log.i(TAG, "onCreate()");
     }
+
+    // Add Fragments to Tabs
+    private void setupViewPager(ViewPager viewPager) {
+        Adapter adapter = new Adapter(getSupportFragmentManager());
+        adapter.addFragment(new ProfileActivityFragment(), "Profile");
+        adapter.addFragment(new MatchesActivityFragment(), "Matches");
+        adapter.addFragment(new SettingsActivityFragment(), "Settings");
+        viewPager.setAdapter(adapter);
+    }
+
+    static class Adapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public Adapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
+    }
+
 
     @Override
     protected void onRestart() {

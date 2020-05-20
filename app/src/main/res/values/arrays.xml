@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="user_names">
+        <item>Doc Antle</item>
+        <item>Carole Baskins</item>
+        <item>John Finlay</item>
+        <item>Joe Exotic</item>
+    </string-array>
+
+    <string-array name="user_ages">
+        <item>51</item>
+        <item>52</item>
+        <item>35</item>
+        <item>53</item>
+    </string-array>
+
+    <string-array name="user_desc">
+        <item>American big cat trainer and wildlife park operator. He is the founder
+            and director of The Institute for Greatly Endangered and Rare Species, a
+            50-acre wildlife preserve in Myrtle Beach, South Carolina. </item>
+        <item>American big-cat rights activist and CEO of Big Cat Rescue, a non-profit
+            animal sanctuary based near Tampa, Florida. </item>
+        <item>Welder and hillbilly. Loves: tattoos, trucks, and polygamy.</item>
+        <item>American former zoo operator and convicted felon. The most prolific breeder of
+            tigers in the United States. Loves: tigers, guns, and Merica; I did not try to kill
+            Carole Baskins</item>
+    </string-array>
+
+    <string-array name="user_occupations">
+        <item>American big cat trainer and wildlife park operator</item>
+        <item>American big-cat rights activist and CEO of Big Cat Rescue</item>
+        <item>Welder</item>
+        <item>Former zoo operator</item>
+    </string-array>
+
+    <array name="user_profile_pictures">
+        <item>@drawable/doc</item>
+        <item>@drawable/carole</item>
+        <item>@drawable/john</item>
+        <item>@drawable/joe</item>
+    </array>
+
+</resources>

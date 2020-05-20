@@ -5,121 +5,81 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 
-import com.google.android.material.tabs.TabLayout;
-
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.List;
+import java.util.Date;
 
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
 
     private TextView dateDisplay;
-    private DatePickerDialog.OnDateSetListener dateSetListener;
-
+    private EditText name_entry;
+    private Button loginBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // Adding Toolbar to Main screen
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        // Setting ViewPager for each Tab
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        setupViewPager(viewPager);
-
-        // Set Tabs inside Toolbar
-        TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
-        tabs.setupWithViewPager(viewPager);
+        TextView welcome = findViewById(R.id.welcome);
+        EditText email_entry = findViewById(R.id.user_email);
+        name_entry = findViewById(R.id.user_name);
+        EditText username_entry = findViewById(R.id.user_username);
+        EditText occupation_entry = findViewById(R.id.user_occupation);
+        EditText description_entry = findViewById(R.id.user_description);
 
         // Adding Date dialog picker
         dateDisplay = findViewById(R.id.user_dob);
         dateDisplay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                Calendar cal = Calendar.getInstance();
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
-
-                DatePickerDialog dialog = new DatePickerDialog(
-                        MainActivity.this,
-                        android.R.style.Widget_Holo_ActionBar_Solid,
-                        dateSetListener, year, month, day);
-                dialog.show();
+                final Calendar c = Calendar.getInstance();
+                int mYear = c.get(Calendar.YEAR);
+                int mMonth = c.get(Calendar.MONTH);
+                int mDay = c.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog dateDialog = new DatePickerDialog(view.getContext(),
+                        datePickerListener, mYear, mMonth, mDay);
+                dateDialog.getDatePicker().setMaxDate(new Date().getTime());
+                dateDialog.show();
             }
         });
-
-        dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month = month + 1;
-                Log.d(TAG, "onDateSet() date: " + month + day + year);
-
-                String date = month + "/" + day + "/" + "year";
-                dateDisplay.setText(date);
-            }
-        };
-
+        loginBtn = findViewById(R.id.login_btn);
         Log.i(TAG, "onCreate()");
     }
 
-
-
-
-        // Add Fragments to Tabs
-        private void setupViewPager(ViewPager viewPager) {
-            Adapter adapter = new Adapter(getSupportFragmentManager());
-            adapter.addFragment(new ProfileActivityFragment(), "Profile");
-            adapter.addFragment(new MatchesActivityFragment(), "Matches");
-            adapter.addFragment(new SettingsActivityFragment(), "Settings");
-            viewPager.setAdapter(adapter);
+    private DatePickerDialog.OnDateSetListener datePickerListener
+            = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            Calendar c = Calendar.getInstance();
+            c.set(Calendar.YEAR, year);
+            c.set(Calendar.MONTH, month);
+            c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            String format = new SimpleDateFormat("dd MMM YYYY").format(c.getTime());
+            dateDisplay.setText(format);
+//            ageDisplay.setText(Integer.toString(calculateAge(c.getTimeInMillis())));
+            Log.d(TAG, "onDateSet() date: " + month + dayOfMonth + year);
         }
+    };
 
-        static class Adapter extends FragmentPagerAdapter {
-            private final List<Fragment> mFragmentList = new ArrayList<>();
-            private final List<String> mFragmentTitleList = new ArrayList<>();
-
-            public Adapter(FragmentManager manager) {
-                super(manager);
-            }
-
-            @Override
-            public Fragment getItem(int position) {
-                return mFragmentList.get(position);
-            }
-
-            @Override
-            public int getCount() {
-                return mFragmentList.size();
-            }
-
-            public void addFragment(Fragment fragment, String title) {
-                mFragmentList.add(fragment);
-                mFragmentTitleList.add(title);
-            }
-
-            @Override
-            public CharSequence getPageTitle(int position) {
-                return mFragmentTitleList.get(position);
-            }
-        }
-
-
+//        int calculateAge(long date){
+//            Calendar dob = Calendar.getInstance();
+//            dob.setTimeInMillis(date);
+//            Calendar today = Calendar.getInstance();
+//            int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+//            if(today.get(Calendar.DAY_OF_MONTH) < dob.get(Calendar.DAY_OF_MONTH)){
+//                age--;
+//            }
+//            return age;
+//        }
 
 
     public void goToSecondActivity(View view) {
@@ -134,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
     @Override
     protected void onRestart() {
         super.onRestart();
@@ -147,28 +106,28 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "onStart()");
     }
 
-//    @Override
-//    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-//        super.onRestoreInstanceState(savedInstanceState);
-//
-//        Log.i(TAG, "onRestoreInstanceState()");
-//        if (savedInstanceState.containsKey(Constants.KEY_NAME)) {
-//            textView.setText((String)savedInstanceState.get(Constants.KEY_NAME));
-//        }
-//
-//        if (savedInstanceState.containsKey(Constants.KEY_BUTTON_TXT)) {
-//            submitButton.setText((String) savedInstanceState.get(Constants.KEY_BUTTON_TXT));
-//        }
-//    }
-//
-//    @Override
-//    public void onSaveInstanceState(@NonNull Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//
-//        Log.i(TAG, "onSaveInstanceState()");
-//        outState.putString(Constants.KEY_NAME, textView.getText().toString());
-//        outState.putString(Constants.KEY_BUTTON_TXT, submitButton.getText().toString());
-//    }
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        Log.i(TAG, "onRestoreInstanceState()");
+        if (savedInstanceState.containsKey(Constants.KEY_NAME)) {
+            name_entry.setText((String)savedInstanceState.get(Constants.KEY_NAME));
+        }
+
+        if (savedInstanceState.containsKey(Constants.KEY_BUTTON_TXT)) {
+            loginBtn.setText((String) savedInstanceState.get(Constants.KEY_BUTTON_TXT));
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        Log.i(TAG, "onSaveInstanceState()");
+        outState.putString(Constants.KEY_NAME, name_entry.getText().toString());
+        outState.putString(Constants.KEY_BUTTON_TXT, loginBtn.getText().toString());
+    }
 
     @Override
     protected void onResume() {

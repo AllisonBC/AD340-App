@@ -28,27 +28,27 @@ public class MainActivityTest {
 
     @Test
     public void goToSecondActivity() {
-        onView(withId(R.id.goToSecondActivity)).perform(scrollTo(), click());
+        onView(withId(R.id.login_btn)).perform(scrollTo(), click());
         try {
-            onView(withId(R.id.textView)).check(matches(withText("Hello \nKyle Bastien\n30 years old")));
+            onView(withId(R.id.user_name)).check(matches(withText("Joe Exotic")));
         } catch (NoMatchingViewException e) {
-            onView(withId(R.id.goToSecondActivity)).perform(scrollTo(), click());
-            onView(withId(R.id.textView)).check(matches(withText("Hello \nKyle Bastien\n30 years old")));
+            onView(withId(R.id.login_btn)).perform(scrollTo(), click());
+            onView(withId(R.id.user_occupation)).check(matches(withText("The Tiger King")));
         }
     }
 
     @Test
     public void retainsStateAfterRotate() {
         // Change state of buttons / textview
-        onView(withId(R.id.goToSecondActivity)).perform(scrollTo(), click());
+        onView(withId(R.id.login_btn)).perform(scrollTo(), click());
 
         // Ensure change happened
-        onView(withId(R.id.goToSecondActivity)).check(matches(withText(R.string.submit)));
+        onView(withId(R.id.login_btn)).check(matches(withText(R.string.submit)));
 
         UtilsTest.rotateScreen(activityTestRule.getActivity());
 
         // Ensure change is still there
-        onView(withId(R.id.goToSecondActivity)).check(matches(withText(R.string.submit)));
+        onView(withId(R.id.login_btn)).check(matches(withText(R.string.submit)));
     }
 
 }
