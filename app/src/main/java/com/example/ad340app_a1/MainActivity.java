@@ -23,18 +23,24 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView dateDisplay;
     private EditText name_entry;
+    private EditText occupation_entry;
+    private EditText email_entry;
+    private EditText description_entry;
     private Button loginBtn;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        TextView welcome = findViewById(R.id.welcome);
-        EditText email_entry = findViewById(R.id.user_email);
+
+
+        email_entry = findViewById(R.id.user_email);
         name_entry = findViewById(R.id.user_name);
         EditText username_entry = findViewById(R.id.user_username);
-        EditText occupation_entry = findViewById(R.id.user_occupation);
-        EditText description_entry = findViewById(R.id.user_description);
+        occupation_entry = findViewById(R.id.user_occupation);
+        description_entry = findViewById(R.id.user_description);
 
         // Adding Date dialog picker
         dateDisplay = findViewById(R.id.user_dob);
@@ -52,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         loginBtn = findViewById(R.id.login_btn);
+
         Log.i(TAG, "onCreate()");
     }
 
@@ -85,11 +92,11 @@ public class MainActivity extends AppCompatActivity {
     public void goToSecondActivity(View view) {
         Intent intent = new Intent(MainActivity.this, SecondActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putString(Constants.KEY_NAME, "Joe Exotic");
-        bundle.putString(Constants.KEY_OCCUPATION, "The Tiger King");
-        bundle.putString(Constants.KEY_EMAIL, "kingojungle@tigerlvr.com");
+        bundle.putString(Constants.KEY_NAME, name_entry.getText().toString());
+        bundle.putString(Constants.KEY_OCCUPATION, occupation_entry.getText().toString());
+        bundle.putString(Constants.KEY_EMAIL, email_entry.getText().toString());
         bundle.putInt(Constants.KEY_AGE, 50);
-        bundle.putString(Constants.KEY_DESCRIPTION, "Loves tigers and guns; did not kill Carole Baskins");
+        bundle.putString(Constants.KEY_DESCRIPTION, description_entry.getText().toString());
         intent.putExtras(bundle);
         startActivity(intent);
     }

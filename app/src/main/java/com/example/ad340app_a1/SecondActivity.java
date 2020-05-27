@@ -16,7 +16,7 @@ import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-// display tabs; hook up view pager
+// display tabs; hook up view pager; show list of matches
 public class SecondActivity extends AppCompatActivity {
     private static final String TAG = SecondActivity.class.getSimpleName();
 

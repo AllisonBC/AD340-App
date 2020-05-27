@@ -34,11 +34,19 @@
         <item>Former zoo operator</item>
     </string-array>
 
+
     <array name="user_profile_pictures">
         <item>@drawable/doc</item>
         <item>@drawable/carole</item>
         <item>@drawable/john</item>
         <item>@drawable/joe</item>
     </array>
+
+    <string-array name="liked">
+        <item>false</item>
+        <item>false</item>
+        <item>false</item>
+        <item>false</item>
+    </string-array>
 
 </resources>

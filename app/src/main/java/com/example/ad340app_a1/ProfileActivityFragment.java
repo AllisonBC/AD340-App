@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -15,8 +16,17 @@ import androidx.fragment.app.Fragment;
 
 // Provides UI for view with Profile
 public class ProfileActivityFragment extends Fragment {
+
+    /**
+     * Mandatory empty constructor for the fragment manager to instantiate the
+     * fragment (e.g. upon screen orientation changes).
+     */
+    public ProfileActivityFragment() {
+    }
+
     private static final String TAG = MainActivity.class.getSimpleName();
 //    private TextView ageDisplay;
+
 
     @Nullable
     @Override
@@ -26,15 +36,17 @@ public class ProfileActivityFragment extends Fragment {
         super.onCreate(savedInstanceState);
         TextView profileText = view.findViewById(R.id.profile_text);
 
-        StringBuilder msg = new StringBuilder("WELCOME \n");
+        StringBuilder msg = new StringBuilder("");
         Intent intent = getActivity().getIntent();
         Bundle b = intent.getExtras();
 
+        // Initialize variables and give default values
         String name = "Example name";
         int age = 30;
         String occupation = "Occupation";
         String description = "Description";
-//        ImageView userPhoto = findViewById(R.drawable.profile);
+
+
 
 
         if (b != null) {
@@ -51,13 +63,14 @@ public class ProfileActivityFragment extends Fragment {
                 description = b.getString(Constants.KEY_DESCRIPTION);
             }
         }
+        ImageView userPhoto = view.findViewById(R.id.profile_photo);
+        userPhoto.setImageResource(R.drawable.profile);
 
-        msg.append(name).append(", ");
-        Log.i(TAG, new StringBuilder("Name: ").append(name).toString());
+        TextView profileName = view.findViewById(R.id.profile_name);
+        profileName.setText(name);
 
         msg.append(age).append(" years old\n");
         Log.i(TAG, new StringBuilder("Age: ").append(age).toString());
-
         msg.append(occupation).append("\n");
         msg.append(description).append("\n");
         profileText.setText(msg);

@@ -14,5 +14,6 @@
 
     <string name="match_name">MatchFirstName MatchLastName</string>
     <string name="user_desc">Description of match user.</string>
+    <string name="profile_picture">Your profile picture</string>
     <string name="user_profile_picture">Profile picture of user</string>
 </resources>
