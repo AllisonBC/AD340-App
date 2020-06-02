@@ -8,6 +8,12 @@ public class Constants {
     static final String KEY_OCCUPATION = "Cat aficionado";
     static final String KEY_DESCRIPTION = "I love cats.";
 
-    static final String KEY_BUTTON_TXT = "submit";
+    static final String KEY_STR_DAY = "31";
+    static final String KEY_STR_MONTH = "May";
+    static final String KEY_STR_YEAR = "1980";
+
+    static final String LIKED = "liked";
+    static final String UID = "uid";
+    static final String MATCHES = "matches";
 
 }

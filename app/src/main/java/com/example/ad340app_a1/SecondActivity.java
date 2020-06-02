@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // display tabs; hook up view pager; show list of matches
-public class SecondActivity extends AppCompatActivity {
+public class SecondActivity extends AppCompatActivity implements OnMatchesFragmentInteractionListener{
     private static final String TAG = SecondActivity.class.getSimpleName();
 
 
@@ -39,6 +39,10 @@ public class SecondActivity extends AppCompatActivity {
         tabs.setupWithViewPager(viewPager);
 
         Log.i(TAG, "onCreate()");
+    }
+
+    @Override
+    public void onMatchesFragmentInteraction(Match item) {
     }
 
     // Add Fragments to Tabs

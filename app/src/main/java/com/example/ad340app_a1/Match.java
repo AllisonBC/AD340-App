@@ -3,30 +3,28 @@ package com.example.ad340app_a1;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @IgnoreExtraProperties
 public class Match implements Parcelable {
     public String uid;
-    public String title;
+    public String name;
+    public String imageUrl;
+    public String lat;
+    public String longitude;
     public boolean liked;
 
     public Match() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public Match(String title, boolean liked) {
-//        this.title = title;
-        this.liked = liked;
-    }
-
     public Match(Parcel in) {
-//        title = in.readString();
+        uid = in.readString();
+        name = in.readString();
         liked = in.readByte() != 0;
+        imageUrl = in.readString();
+        lat = in.readString();
+        longitude = in.readString();
     }
 
     public static final Creator<Match> CREATOR = new Creator<Match>() {
@@ -41,14 +39,49 @@ public class Match implements Parcelable {
         }
     };
 
-    @Exclude
-    public Map<String, Object> toMap() {
-        HashMap<String, Object> result = new HashMap<>();
-        result.put("uid", uid);
-//        result.put("title", title);
-        result.put("true", liked);
+//    // ???
+//    @Exclude
+//    public Map<String, Object> toMap() {
+//        HashMap<String, Object> result = new HashMap<>();
+//        //        result.put("title", title);
+//        result.put("uid", uid);
+//        result.put("name", name);
+//        result.put("true", liked);
+//        return result;
+//    }
 
-        return result;
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    // Getters
+    public String getUid() {
+        return uid;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public boolean getLike() {
+        return liked;
+    }
+
+    public String getLat() {
+        return lat;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    // Setters
+    public void setLike(boolean liked) {
+        this.liked = liked;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     @Override
@@ -59,6 +92,7 @@ public class Match implements Parcelable {
     // tells parcel class how to write object
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
         dest.writeByte((byte) (liked ? 1 : 0));
     }
 }

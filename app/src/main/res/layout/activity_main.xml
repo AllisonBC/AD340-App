@@ -59,15 +59,24 @@
         android:inputType="textPersonName"
         android:layout_below="@+id/user_occupation" />
 
-    <EditText
-        android:id="@+id/user_dob"
+    <TextView
+        android:id="@+id/textViewDOB"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/dobHint" />
+        android:textSize="18sp"
+        android:text="@string/dobHint"
+        android:layout_below="@+id/user_description" />
+
+    <DatePicker
+        android:id="@+id/user_dob_picker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:datePickerMode="spinner"
+        android:calendarViewShown="false"/>
 
     <Button
         android:id="@+id/login_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/submit"
         android:onClick="goToSecondActivity"

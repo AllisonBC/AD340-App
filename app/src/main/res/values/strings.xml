@@ -5,7 +5,7 @@
     <string name="emailHint">Email</string>
     <string name="nameHint">Name</string>
     <string name="usernameHint">Username</string>
-    <string name="dobHint">Select date of birth</string>
+    <string name="dobHint">Select your date of birth: </string>
     <string name="userOccupationHint">Occupation</string>
     <string name="userDescriptionHint">Describe yourself</string>
     <string name="matches">Matches</string>
@@ -16,4 +16,7 @@
     <string name="user_desc">Description of match user.</string>
     <string name="profile_picture">Your profile picture</string>
     <string name="user_profile_picture">Profile picture of user</string>
+
+    <string name="age_invalid">You must be 18 to join.</string>
+    <string name="like_button_message">You liked </string>
 </resources>

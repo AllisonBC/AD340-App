@@ -2,32 +2,28 @@ package com.example.ad340app_a1;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.example.ad340app_a1.FirebaseMatchesDataModel;
-import com.example.ad340app_a1.Match;
 
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
+
 public class FirebaseMatchViewModel {
+
+    private static final String TAG = FirebaseMatchViewModel.class.getSimpleName();
     private FirebaseMatchesDataModel matchModel;
 
     public FirebaseMatchViewModel() {
         matchModel = new FirebaseMatchesDataModel();
     }
 
-//    public void addMatch(Match item) {
-//        matchModel.addMatch(item);
-//    }
-
     public void getMatches(Consumer<ArrayList<Match>> responseCallback) {
-        matchModel.getMatches(
-                (QuerySnapshot querySnapshot) -> {
+        matchModel.getMatches((QuerySnapshot querySnapshot) -> {
                     if (querySnapshot != null) {
                         ArrayList<Match> matchList = new ArrayList<>();
-                        for (DocumentSnapshot todoSnapshot : querySnapshot.getDocuments()) {
-                            Match item = todoSnapshot.toObject(Match.class);
+                        for (DocumentSnapshot matchSnapshot : querySnapshot.getDocuments()) {
+                            Match item = matchSnapshot.toObject(Match.class);
                             assert item != null;
-                            item.uid = todoSnapshot.getId();
+                            item.uid = matchSnapshot.getId();
                             matchList.add(item);
                         }
                         responseCallback.accept(matchList);
@@ -41,7 +37,7 @@ public class FirebaseMatchViewModel {
         matchModel.updateMatchLikeById(item);
     }
 
-    public void clear() {
-        matchModel.clear();
+    public void clear(){
+    matchModel.clear();
     }
 }
