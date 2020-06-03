@@ -5,9 +5,135 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/md_keylines">
+
+<!--    match reminder time-->
     <TextView
-        android:id="@+id/settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/settings" />
+        android:text="@string/daily_match_reminder" />
+    <EditText
+        android:id="@+id/match_reminder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/time_hint"/>
+
+<!--    gender-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/gender" />
+    <EditText
+        android:id="@+id/gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/male"/>
+<!--    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical">-->
+<!--        <RadioButton-->
+<!--            android:id="@+id/radio_male"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/male"-->
+<!--            android:onClick="onRadioButtonClicked"/>-->
+<!--        <RadioButton-->
+<!--            android:id="@+id/radio_female"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/female"-->
+<!--            android:onClick="onRadioButtonClicked"/>-->
+<!--        <RadioButton-->
+<!--            android:id="@+id/radio_other"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/other"-->
+<!--            android:onClick="onRadioButtonClicked"/>-->
+<!--    </RadioGroup>-->
+
+<!--    distance-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/max_search_dist" />
+    <EditText
+        android:id="@+id/distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/distance_hint"/>
+
+<!--    privacy-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/privacy" />
+
+    <EditText
+        android:id="@+id/privacy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/radio_private"/>
+
+<!--    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical">-->
+<!--        <RadioButton-->
+<!--            android:id="@+id/radio_private"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/radio_private"-->
+<!--            android:onClick="onRadioButtonClicked"/>-->
+<!--        <RadioButton-->
+<!--            android:id="@+id/radio_public"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/radio_public"-->
+<!--            android:onClick="onRadioButtonClicked"/>-->
+<!--    </RadioGroup>-->
+
+<!--    age interest range-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/age_interest" />
+    <EditText
+        android:id="@+id/age_interest_hi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/age_hint_lo"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/and" />
+    <EditText
+        android:id="@+id/age_interest_lo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/age_hint_hi"/>
+
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/between" />-->
+<!--    <Spinner-->
+<!--        android:id="@+id/spinner1"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"/>-->
+
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/and" />-->
+<!--    <Spinner-->
+<!--        android:id="@+id/spinner2"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content" />-->
+
+<!--    save-->
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/save"/>
 </LinearLayout>

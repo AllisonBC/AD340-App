@@ -1,10 +1,14 @@
 package com.example.ad340app_a1;
 
+import android.util.Log;
+
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
+import com.google.firebase.firestore.EventListener;
 import java.util.ArrayList;
 import java.util.function.Consumer;
+
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 
 public class FirebaseMatchViewModel {
@@ -29,7 +33,8 @@ public class FirebaseMatchViewModel {
                         responseCallback.accept(matchList);
                     }
                 },
-                (databaseError -> System.out.println("Error reading matches: " + databaseError))
+                (databaseError -> Log.i(TAG, "Error reading matches"))
+//                (databaseError -> System.out.println("Error reading matches: " + databaseError))
         );
     }
 

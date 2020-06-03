@@ -1,11 +1,11 @@
 package com.example.ad340app_a1;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -26,18 +26,29 @@ public class SecondActivity extends AppCompatActivity implements OnMatchesFragme
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
 
-        // Adding Toolbar to Main screen
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        Intent intent = getIntent();
+        Bundle b = intent.getExtras();
 
-        // Setting ViewPager for each Tab
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        setupViewPager(viewPager);
+//        // Adding Toolbar to Main screen
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 
-        // Set Tabs inside Toolbar
-        TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
-        tabs.setupWithViewPager(viewPager);
+        if (b!=null) {
+            // Setting ViewPager for each Tab
+            ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+            setupViewPager(viewPager, b);
 
+            // Set Tabs inside Toolbar
+            TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
+            tabs.setupWithViewPager(viewPager);
+
+        }else{
+            ViewPager viewpager = findViewById(R.id.viewpager);
+            setupViewPager(viewpager, null);
+
+            TabLayout tabs = findViewById(R.id.tabs);
+            tabs.setupWithViewPager(viewpager);
+        }
         Log.i(TAG, "onCreate()");
     }
 
@@ -46,11 +57,15 @@ public class SecondActivity extends AppCompatActivity implements OnMatchesFragme
     }
 
     // Add Fragments to Tabs
-    private void setupViewPager(ViewPager viewPager) {
+    private void setupViewPager(ViewPager viewPager, Bundle b) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
         adapter.addFragment(new ProfileActivityFragment(), "Profile");
         adapter.addFragment(new MatchesActivityFragment(), "Matches");
         adapter.addFragment(new SettingsActivityFragment(), "Settings");
+
+        //TODO: add bundle to profile fragment
+        //TODO: add bundle to settings fragment
+
         viewPager.setAdapter(adapter);
     }
 

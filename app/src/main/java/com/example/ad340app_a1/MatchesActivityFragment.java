@@ -123,7 +123,7 @@ public class MatchesActivityFragment extends Fragment {
      * Adapter to display recycler view.
      */
     public class ContentAdapter extends RecyclerView.Adapter<ViewHolder> {
-        private static final int LENGTH = 18;
+        private static final int LENGTH = 6;
         private final String[] userNames;
         private final String[] uid;
         private String[] profileImageUrls;
@@ -144,11 +144,11 @@ public class MatchesActivityFragment extends Fragment {
 //            a.recycle();
 
             // initialized to size of given firebase db
-            //TODO: initialize to length
-            userNames = new String[6];
-            profileImageUrls = new String[6];
-            liked = new boolean[6];
-            uid   = new String[6];
+            //TODO: initialize to size of array
+            userNames = new String[LENGTH];
+            profileImageUrls = new String[LENGTH];
+            liked = new boolean[LENGTH];
+            uid   = new String[LENGTH];
 
             viewModel = new FirebaseMatchViewModel();
             viewModel.getMatches(
@@ -185,7 +185,7 @@ public class MatchesActivityFragment extends Fragment {
             }
 
             holder.matchName = holder.name.getText().toString();//set name for each card
-            StringBuilder likeBtnMsg = new StringBuilder(R.string.like_button_message);
+            StringBuilder likeBtnMsg = new StringBuilder(getString(R.string.like_button_message));
             likeBtnMsg.append(holder.matchName);
             holder.likedToastMsg = likeBtnMsg.toString();
 
