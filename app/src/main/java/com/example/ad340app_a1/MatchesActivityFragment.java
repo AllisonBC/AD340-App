@@ -39,24 +39,11 @@ public class MatchesActivityFragment extends Fragment {
     public MatchesActivityFragment() {
     }
 
-//    @SuppressWarnings("unused")
-//    public static MatchesActivityFragment newInstance(int columnCount) {
-//        MatchesActivityFragment fragment = new MatchesActivityFragment();
-//        Bundle args = new Bundle();
-//        args.putInt(ARG_COLUMN_COUNT, columnCount);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-//            mDataSet = getArguments().getParcelableArrayList(ARG_DATA_SET);
         Log.i(TAG, "onCreate()");
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -96,24 +83,25 @@ public class MatchesActivityFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Match item = new Match();
-
+                    // if isLike is true at onClick, it's getting un-liked
                     if (isLiked) {
-                        favoriteBtn.setImageResource(R.drawable.button_pressed);
-                        isLiked = !isLiked;
-                        item.setLike(isLiked);
-                        item.setUid(matchUid);
-                        onMatchesFragmentInteraction(item);
-                        Log.i(TAG, String.valueOf(item.getLike()));
-                    }else{
                         favoriteBtn.setImageResource(R.drawable.button_normal);
                         isLiked = !isLiked;
                         item.setLike(isLiked);
                         item.setUid(matchUid);
                         onMatchesFragmentInteraction(item);
                         Log.i(TAG, String.valueOf(item.getLike()));
+                    // if isLike is false at onClick, it's getting liked
+                    }else {
+                        favoriteBtn.setImageResource(R.drawable.button_pressed);
+                        isLiked = !isLiked;
+                        item.setLike(isLiked);
+                        item.setUid(matchUid);
+                        onMatchesFragmentInteraction(item);
+                        Log.i(TAG, String.valueOf(item.getLike()));
+                        Toast toast = Toast.makeText(v.getContext(), likedToastMsg, Toast.LENGTH_SHORT);
+                        toast.show();
                     }
-                    Toast toast = Toast.makeText(v.getContext(), likedToastMsg, Toast.LENGTH_SHORT);
-                    toast.show();
                 }
             });
         }
@@ -175,11 +163,11 @@ public class MatchesActivityFragment extends Fragment {
 //            holder.picture.setImageDrawable(profilePhotos[position % profilePhotos.length]);
             Picasso.get().load(profileImageUrls[position % profileImageUrls.length]).into(holder.profilePicture);
             holder.name.setText(userNames[position % userNames.length]);
-            holder.matchUid = uid[position % uid.length]; //store uid for each card
+            holder.matchUid = uid[position % uid.length];
             holder.isLiked = liked[position % liked.length];
 
 
-            //set like button for liked matches from db.
+            //set if isLiked
             if(String.valueOf(holder.isLiked) == "true"){
                 holder.favoriteBtn.setImageResource(R.drawable.button_pressed);
             }

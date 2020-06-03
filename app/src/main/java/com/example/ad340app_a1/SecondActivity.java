@@ -29,7 +29,7 @@ public class SecondActivity extends AppCompatActivity implements OnMatchesFragme
         Intent intent = getIntent();
         Bundle b = intent.getExtras();
 
-//        // Adding Toolbar to Main screen
+//        // Add Toolbar to main screen
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
 
@@ -60,11 +60,13 @@ public class SecondActivity extends AppCompatActivity implements OnMatchesFragme
     private void setupViewPager(ViewPager viewPager, Bundle b) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
         adapter.addFragment(new ProfileActivityFragment(), "Profile");
-        adapter.addFragment(new MatchesActivityFragment(), "Matches");
         adapter.addFragment(new SettingsActivityFragment(), "Settings");
+        adapter.addFragment(new MatchesActivityFragment(), "Matches");
 
-        //TODO: add bundle to profile fragment
-        //TODO: add bundle to settings fragment
+        // add bundle to profile fragment
+        adapter.getItem(1).setArguments(b);
+        // add bundle to settings fragment
+        adapter.getItem(2).setArguments(b);
 
         viewPager.setAdapter(adapter);
     }

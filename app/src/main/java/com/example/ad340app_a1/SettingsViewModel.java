@@ -30,7 +30,7 @@ public class SettingsViewModel extends ViewModel {
     public void deleteSettings(Context context, Settings settings) {
         AppDatabase db = AppDatabaseSingleton.getDatabase(context);
         db.getTransactionExecutor().execute(() -> {
-            db.settingsDao().delete(settings);
+            db.settingsDao().deleteSettings(settings);
         });
     }
 }

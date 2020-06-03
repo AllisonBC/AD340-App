@@ -16,7 +16,7 @@ public interface SettingsDao {
     @Query("SELECT * FROM settings")
     LiveData<List<Settings>> getAll();
 
-    // Get settings of user with matching email
+    // Get settings of user via email
     @Query("SELECT * FROM settings WHERE email = :email")
     LiveData<List<Settings>> getSettingsById(String[] email);
 
@@ -29,6 +29,6 @@ public interface SettingsDao {
     void insertSettings(Settings... settings);
 
     @Delete
-    void delete(Settings settings);
+    void deleteSettings(Settings settings);
 
 }
