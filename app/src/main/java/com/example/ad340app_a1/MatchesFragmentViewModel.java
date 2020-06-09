@@ -4,20 +4,18 @@ import android.util.Log;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.EventListener;
+
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
-import com.google.firebase.firestore.FirebaseFirestoreException;
 
+public class MatchesFragmentViewModel {
 
-public class FirebaseMatchViewModel {
+    private static final String TAG = MatchesFragmentViewModel.class.getSimpleName();
+    private FirebaseMatchDataModel matchModel;
 
-    private static final String TAG = FirebaseMatchViewModel.class.getSimpleName();
-    private FirebaseMatchesDataModel matchModel;
-
-    public FirebaseMatchViewModel() {
-        matchModel = new FirebaseMatchesDataModel();
+    public MatchesFragmentViewModel() {
+        matchModel = new FirebaseMatchDataModel();
     }
 
     public void getMatches(Consumer<ArrayList<Match>> responseCallback) {

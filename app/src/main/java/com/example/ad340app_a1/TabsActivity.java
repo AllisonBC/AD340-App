@@ -17,14 +17,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 // display tabs; hook up view pager; show list of matches
-public class SecondActivity extends AppCompatActivity implements OnMatchesFragmentInteractionListener{
-    private static final String TAG = SecondActivity.class.getSimpleName();
+public class TabsActivity extends AppCompatActivity implements OnMatchesFragmentInteractionListener{
+    private static final String TAG = TabsActivity.class.getSimpleName();
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_second);
+        setContentView(R.layout.activity_tabs);
 
         Intent intent = getIntent();
         Bundle b = intent.getExtras();
@@ -59,9 +59,9 @@ public class SecondActivity extends AppCompatActivity implements OnMatchesFragme
     // Add Fragments to Tabs
     private void setupViewPager(ViewPager viewPager, Bundle b) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(new ProfileActivityFragment(), "Profile");
-        adapter.addFragment(new SettingsActivityFragment(), "Settings");
-        adapter.addFragment(new MatchesActivityFragment(), "Matches");
+        adapter.addFragment(new ProfileFragment(), "Profile");
+        adapter.addFragment(new SettingsFragment(), "Settings");
+        adapter.addFragment(new MatchesFragment(), "Matches");
 
         // add bundle to profile fragment
         adapter.getItem(1).setArguments(b);

@@ -8,6 +8,7 @@ import android.content.Context;
 import java.util.List;
 
 public class SettingsViewModel extends ViewModel {
+    // LiveData holds data; other app components can monitor changes to objects using this holder
     public LiveData<List<Settings>> loadSettingsById(Context context, String[] emailIds) {
         AppDatabase db = AppDatabaseSingleton.getDatabase(context);
         return db.settingsDao().getSettingsById(emailIds);

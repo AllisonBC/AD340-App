@@ -15,5 +15,6 @@ public class Constants {
     static final String LIKED = "liked";
     static final String UID = "uid";
     static final String MATCHES = "matches";
+    static final Double METERS_TO_MILES = 1609.3440057765;
 
 }

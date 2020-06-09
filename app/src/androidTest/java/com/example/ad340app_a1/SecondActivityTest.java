@@ -11,8 +11,8 @@ import org.junit.runner.RunWith;
 @RunWith(AndroidJUnit4.class)
 public class SecondActivityTest {
     @Rule
-    public ActivityTestRule<SecondActivity> activityTestRule
-            = new ActivityTestRule<SecondActivity>(SecondActivity.class) {
+    public ActivityTestRule<TabsActivity> activityTestRule
+            = new ActivityTestRule<TabsActivity>(TabsActivity.class) {
         @Override
         protected Intent getActivityIntent() {
             Intent testIntent = new Intent();

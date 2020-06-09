@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToSecondActivity(View view) {
         if(age >= 18){
-            Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+            Intent intent = new Intent(MainActivity.this, TabsActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString(Constants.KEY_NAME, name_entry.getText().toString());
             bundle.putString(Constants.KEY_OCCUPATION, occupation_entry.getText().toString());

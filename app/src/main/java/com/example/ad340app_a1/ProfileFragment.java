@@ -15,13 +15,13 @@ import androidx.fragment.app.Fragment;
 
 
 // Provides UI for view with Profile
-public class ProfileActivityFragment extends Fragment {
+public class ProfileFragment extends Fragment {
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public ProfileActivityFragment() {
+    public ProfileFragment() {
     }
 
     private static final String TAG = MainActivity.class.getSimpleName();

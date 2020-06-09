@@ -2,17 +2,13 @@ package com.example.ad340app_a1;
 
 import android.os.Bundle;
 
-import java.util.ArrayList;
 import java.util.List;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
@@ -20,8 +16,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 // Provides UI for view with Settings
-public class SettingsActivityFragment extends Fragment {
-    public static final String TAG = SettingsActivityFragment.class.getSimpleName();
+public class SettingsFragment extends Fragment {
+    public static final String TAG = SettingsFragment.class.getSimpleName();
 
     private SettingsViewModel settingsViewModel;
     private String email;
@@ -122,9 +118,7 @@ public class SettingsActivityFragment extends Fragment {
 
         // updates Settings from form entry and sends data to db
         saveButton.setOnClickListener(v -> {
-
             Settings settings = new Settings();
-
             settings.setEmail(email);
             settings.setReminderTime(editReminderTime.getText().toString());
             settings.setDistance(Integer.parseInt(editDistance.getText().toString()));
@@ -132,7 +126,6 @@ public class SettingsActivityFragment extends Fragment {
             settings.setGender(editAgeInterestHi.getText().toString());
             settings.setGender(editAgeInterestLo.getText().toString());
             settings.setPrivacy(editPrivacy.getText().toString());
-
 
             settingsViewModel.updateSettings(view.getContext(), settings);
 
@@ -142,12 +135,11 @@ public class SettingsActivityFragment extends Fragment {
             editPrivacy.setText(settings.getPrivacy());
             editAgeInterestHi.setText(String.valueOf(settings.getAgeHi()));
             editAgeInterestLo.setText(String.valueOf(settings.getAgeLo()));
-
         });
 
         String[] emails = { email };
         settingsViewModel.loadSettingsById(view.getContext(),
                 emails).observe((LifecycleOwner) view.getContext(), getSettingsObserver);
         return view;
-}
+    }
 }

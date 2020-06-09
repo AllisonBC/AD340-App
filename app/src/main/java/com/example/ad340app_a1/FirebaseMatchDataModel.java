@@ -13,12 +13,12 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 
-public class FirebaseMatchesDataModel {
+public class FirebaseMatchDataModel {
 
     private FirebaseFirestore db;
     private List<ListenerRegistration> listeners;
 
-    public FirebaseMatchesDataModel() {
+    public FirebaseMatchDataModel() {
         db = FirebaseFirestore.getInstance();
         listeners = new ArrayList<>();
     }
