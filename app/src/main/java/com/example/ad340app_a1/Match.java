@@ -10,8 +10,8 @@ public class Match implements Parcelable {
     public String uid;
     public String name;
     public String imageUrl;
-    public String matchLatitude;
-    public String matchLongitude;
+    public String lat;
+    public String longitude;
     public boolean liked;
 
     public Match() {
@@ -23,8 +23,8 @@ public class Match implements Parcelable {
         name = in.readString();
         liked = in.readByte() != 0;
         imageUrl = in.readString();
-        matchLatitude = in.readString();
-        matchLongitude = in.readString();
+        lat = in.readString();
+        longitude = in.readString();
     }
 
     public static final Creator<Match> CREATOR = new Creator<Match>() {
@@ -68,11 +68,11 @@ public class Match implements Parcelable {
     }
 
     public String getLat() {
-        return matchLatitude;
+        return lat;
     }
 
     public String getLongitude() {
-        return matchLongitude;
+        return longitude;
     }
 
 
