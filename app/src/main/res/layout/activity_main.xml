@@ -64,8 +64,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18sp"
-        android:text="@string/dobHint"
+        android:text="@string/dob_entry"
         android:layout_below="@+id/user_description" />
+
+    <EditText
+        android:id="@+id/user_dob"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/userDobHint"
+        android:layout_below="@+id/textViewDOB" />
 
     <DatePicker
         android:id="@+id/user_dob_picker"
@@ -73,6 +80,15 @@
         android:layout_height="wrap_content"
         android:datePickerMode="spinner"
         android:calendarViewShown="false"/>
+
+<!--    <ImageButton-->
+<!--        android:id="@+id/user_dob_picker"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignBottom="user_dob"-->
+<!--        android:layout_toRightOf="user_dob"-->
+<!--        android:src="@drawable/calendar_icon"-->
+<!--        android:onClick="setDOB"/>-->
 
     <Button
         android:id="@+id/login_btn"

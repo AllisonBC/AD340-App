@@ -5,7 +5,8 @@
     <string name="emailHint">Email</string>
     <string name="nameHint">Name</string>
     <string name="usernameHint">Username</string>
-    <string name="dobHint">Select your date of birth: </string>
+    <string name="dob_entry">Select your date of birth: </string>
+    <string name="userDobHint">12/12/12</string>
     <string name="userOccupationHint">Occupation</string>
     <string name="userDescriptionHint">Describe yourself</string>
     <string name="matches">Matches</string>
@@ -44,6 +45,11 @@
     <string name="network_provider_update">Network Provider update</string>
     <string name="filter_on">Distance filter: on</string>
     <string name="filter_off">Distance filter: off</string>
+
+    <string name="MatchMaxDistance_off">Distance filter: off</string>
+    <string name="MatchMaxDistance_on">Distance filter: off</string>
+
+
 
     <string name="test_email">test@test.com</string>
 </resources>

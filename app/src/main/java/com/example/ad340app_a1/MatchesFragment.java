@@ -38,13 +38,16 @@ import static com.example.ad340app_a1.Constants.METERS_TO_MILES;
 public class MatchesFragment extends Fragment {
 
     private static final String TAG = MatchesFragment.class.getSimpleName();
+
+    private Context context;
     public MatchesFragmentViewModel viewModel;
+    public RecyclerView recyclerView;
     private ArrayList<Match> matchDataSet;
     private OnMatchesFragmentInteractionListener mListener;
     private LocationManager locationManager;
-
-//    double longitudeNetwork, latitudeNetwork;//for testing
-//    TextView longitudeValueNetwork, latitudeValueNetwork; //for testing
+    double latitudeGPS  = 47.614444;  // Bellevue lat
+    double longitudeGPS = -122.1925;  // Bellevue long
+    int maxMatchDistance = 10;
 
 
     // Mandatory empty constructor to instantiate frag (eg: screen orientation change)
@@ -60,8 +63,12 @@ public class MatchesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.recycler_view,
-                container, false);
+
+        recyclerView = (RecyclerView) inflater.inflate(R.layout.recycler_view, container, false);
+        locationManager = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
+        context = getActivity();
+        setGPSUpdates();
+
         // adapter
         ContentAdapter adapter = new ContentAdapter(recyclerView.getContext());
         recyclerView.setAdapter(adapter);
@@ -76,6 +83,7 @@ public class MatchesFragment extends Fragment {
         public TextView description;
         public ImageButton favoriteBtn;
         public String likedToastMsg;
+        public String unLikedToastMsg;
 
         public String matchUid;
         public String matchName;
@@ -120,6 +128,7 @@ public class MatchesFragment extends Fragment {
         }
     }
 
+// previous assignment
 //        public ContentAdapter(Context context) {
 //            Resources resources = context.getResources();
 //            userNames = resources.getStringArray(R.array.user_names);
@@ -134,42 +143,48 @@ public class MatchesFragment extends Fragment {
 
     // Adapter to display recycler view
     public class ContentAdapter extends RecyclerView.Adapter<ViewHolder> {
-        private static final int LENGTH = 6; // from given firebase db
-        private final String[] userNames;
-        private final String[] uid;
-        private String[] profileImageUrls;
-//        private final Drawable[] profilePhotos;
-        private final boolean[] liked;
+
+        private ArrayList<String> userNames;
+        private ArrayList<String> uid;
+        private ArrayList<String> profileImageUrls;
+//        private final Drawable[] profilePhotos;  // previous assignment
+        private ArrayList<Boolean> liked;
+
         private MatchesFragmentViewModel viewModel;
 
-
+        public int MatchesInsideMaxDistanceCount;
 
         Location matchLocation = new Location("");
+        Location userLocation = new Location("");
 
         public ContentAdapter(Context context) {
 
-            locationManager = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
+            userNames = new ArrayList<>();
+            profileImageUrls = new ArrayList<>();
+            liked = new ArrayList<>();
+            uid = new ArrayList<>();
 
-            userNames = new String[LENGTH];
-            profileImageUrls = new String[LENGTH];
-            liked = new boolean[LENGTH];
-            uid   = new String[LENGTH];
+            userLocation.setLatitude(latitudeGPS);
+            userLocation.setLongitude(longitudeGPS);
 
             viewModel = new MatchesFragmentViewModel();
             viewModel.getMatches((ArrayList<Match> matchDataSet) -> {
                 for(int i = 0; i < matchDataSet.size(); i++){
                     double matchLatitude = Double.parseDouble(matchDataSet.get(i).getLat());
+                    Log.i(TAG, "matchLatitude: " + matchLatitude);
                     double matchLongitude = Double.parseDouble(matchDataSet.get(i).getLongitude());
-                    setMatchLocation(matchLatitude, matchLongitude);
-                    double matchDistance = matchLocation.distanceTo(matchLocation);
+                    matchLocation.setLatitude(matchLatitude);
+                    matchLocation.setLongitude(matchLongitude);
+                    double matchDistance = matchLocation.distanceTo(userLocation);
                     matchDistance = metersToMiles(matchDistance);
 
                     //TODO retrieve desired max distance // HARDCODED TO 10 /////
-                    if(matchDistance < 10){
-                        userNames[i] = matchDataSet.get(i).getName();
-                        profileImageUrls[i] = matchDataSet.get(i).getImageUrl();
-                        liked[i] = matchDataSet.get(i).getLike();
-                        uid[i] = matchDataSet.get(i).getUid();
+                    if(matchDistance < maxMatchDistance){
+                        userNames.add(matchDataSet.get(i).getName());
+                        profileImageUrls.add(matchDataSet.get(i).getImageUrl());
+                        liked.add(matchDataSet.get(i).getLike());
+                        uid.add(matchDataSet.get(i).getUid());
+                        MatchesInsideMaxDistanceCount++;
                     }
                 }
                 notifyDataSetChanged();
@@ -178,12 +193,6 @@ public class MatchesFragment extends Fragment {
 
         private double metersToMiles(double meters) {
             return meters / METERS_TO_MILES;
-        }
-
-
-        public void setMatchLocation(double matchLatitude, double matchLongitude){
-            matchLocation.setLatitude(matchLatitude);
-            matchLocation.setLongitude(matchLongitude);
         }
 
         @NonNull
@@ -195,16 +204,17 @@ public class MatchesFragment extends Fragment {
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
 //            holder.picture.setImageDrawable(profilePhotos[position % profilePhotos.length]);
-            Picasso.get().load(profileImageUrls[position % profileImageUrls.length]).into(holder.profilePicture);
-            holder.name.setText(userNames[position % userNames.length]);
-            holder.matchUid = uid[position % uid.length];
-            holder.isLiked = liked[position % liked.length];
+            Picasso.get().load(profileImageUrls.get(position)).into(holder.profilePicture);
+            holder.name.setText(userNames.get(position));
+            holder.matchUid = uid.get(position);
+            holder.isLiked = liked.get(position);
 
             //set if isLiked
             if(String.valueOf(holder.isLiked) == "true"){
                 holder.favoriteBtn.setImageResource(R.drawable.button_pressed);
             }
 
+            //TODO add message for unliking a match
             holder.matchName = holder.name.getText().toString();//set name for each card
             StringBuilder likeBtnMsg = new StringBuilder(getString(R.string.like_button_message));
             likeBtnMsg.append(holder.matchName);
@@ -215,89 +225,80 @@ public class MatchesFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return LENGTH;
+            return MatchesInsideMaxDistanceCount;
         }
-
-        private boolean checkLocation(){
-            if(!isLocationEnabled()){
-                showAlert();
-            }
-            return isLocationEnabled();
-        }
-
-        private boolean isLocationEnabled(){
-            return locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-        }
-
-        // create dialog to go to show intent to go to Settings application
-        private void showAlert() {
-            final AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
-            dialog.setTitle(R.string.enable_location)
-                    .setMessage(getString(R.string.location_message))
-                    .setPositiveButton(R.string.location_settings, (paramDialogInterface, paramInt) -> {
-                        Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                        startActivity(myIntent);
-                    })
-                    .setNegativeButton(R.string.location_cancel, (paramDialogInterface, paramInt) -> {});
-            dialog.show();
-        }
-//TODO: add toggle button
-        // at click of a button
-        public void toggleNetworkUpdates(View view) {
-            if(!checkLocation())
-                return;
-
-            // button toggles distance filter on/filter off
-            Button button = (Button) view;
-            // button reads pause, we're already getting updates, so
-            if(button.getText().equals(getResources().getString(R.string.filter_on))) {
-                // remove updates
-                locationManager.removeUpdates(locationListenerNetwork);
-                // set button to resume
-                button.setText(R.string.filter_off);
-            }
-            // if distance filter is off
-            else {
-                // do self permission checks
-                if (ActivityCompat.checkSelfPermission(getContext(),
-                        android.Manifest.permission.ACCESS_FINE_LOCATION) ==
-                        PackageManager.PERMISSION_GRANTED ||
-                        ActivityCompat.checkSelfPermission(
-                                getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) ==
-                                PackageManager.PERMISSION_GRANTED) {
-                    // request scheduled location updates
-                    locationManager.requestLocationUpdates(
-                            LocationManager.NETWORK_PROVIDER,
-                            60 * 1000,
-                            10,
-                            locationListenerNetwork);
-                } else {
-                    Log.e("db","LOCATION PERMISSIONS ERROR");
-                }
-            }
-        }
-
-        private final LocationListener locationListenerNetwork = new LocationListener() {
-            public void onLocationChanged(Location location) {
-//                //TESTING*************************
-//                longitudeNetwork = location.getLongitude();
-//                latitudeNetwork = location.getLatitude();
-
-                //check text views for long and lat
-                location.getLongitude();
-                location.getLatitude();
-            }
-
-            @Override
-            public void onStatusChanged(String s, int i, Bundle bundle) {}
-
-            @Override
-            public void onProviderEnabled(String s) {}
-
-            @Override
-            public void onProviderDisabled(String s) {}
-        };
     }
+
+
+    private boolean checkLocation(){
+        if(!isLocationEnabled()){
+            showAlert();
+        }
+        return isLocationEnabled();
+    }
+
+    private boolean isLocationEnabled(){
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+    }
+
+    // create dialog to go to show intent to go to Settings application
+    private void showAlert() {
+        final AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
+        dialog.setTitle(R.string.enable_location)
+                .setMessage(getString(R.string.location_message))
+                .setPositiveButton(R.string.location_settings, (paramDialogInterface, paramInt) -> {
+                    Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    startActivity(myIntent);
+                })
+                .setNegativeButton(R.string.location_cancel, (paramDialogInterface, paramInt) -> {});
+        dialog.show();
+    }
+
+    public void setGPSUpdates() {
+        if(!checkLocation()) {
+            return;
+        }
+        // do self permission checks
+        if (ActivityCompat.checkSelfPermission(getContext(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION) ==
+                PackageManager.PERMISSION_GRANTED ||
+                ActivityCompat.checkSelfPermission(getContext(),
+                        android.Manifest.permission.ACCESS_COARSE_LOCATION) ==
+                        PackageManager.PERMISSION_GRANTED) {
+            // request scheduled location updates
+            locationManager.requestLocationUpdates(
+                    LocationManager.GPS_PROVIDER,
+                    60 * 1000,
+                    10,
+                    locationListenerGPS);
+        } else {
+            Log.e("db","LOCATION PERMISSIONS ERROR");
+        }
+    }
+
+
+    private final LocationListener locationListenerGPS = new LocationListener() {
+
+        public void onLocationChanged(Location location) {
+            location.getLongitude();
+            location.getLatitude();
+
+            // adapt content when location changed
+            ContentAdapter adapter = new ContentAdapter(recyclerView.getContext());
+            recyclerView.setAdapter(adapter);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        }
+
+        @Override
+        public void onStatusChanged(String s, int i, Bundle bundle) {}
+
+        @Override
+        public void onProviderEnabled(String s) {}
+
+        @Override
+        public void onProviderDisabled(String s) {}
+    };
 
 
     @Override

@@ -58,6 +58,7 @@
             android:layout_marginRight="@dimen/md_keylines"
             android:onClick="displayMatchMsg"
             app:srcCompat="@drawable/like_button_selector" />
+
 <!--FOR TESTING DISTANCE LOCATION-->
         <TextView
             android:id="@+id/card_location"
