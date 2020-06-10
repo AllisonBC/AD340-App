@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,6 +28,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import static com.example.ad340app_a1.Constants.BELLEVUE_LAT;
+import static com.example.ad340app_a1.Constants.BELLEVUE_LONG;
 import static com.example.ad340app_a1.Constants.METERS_TO_MILES;
 
 /**
@@ -45,10 +46,9 @@ public class MatchesFragment extends Fragment {
     private ArrayList<Match> matchDataSet;
     private OnMatchesFragmentInteractionListener mListener;
     private LocationManager locationManager;
-    double latitudeGPS  = 47.614444;  // Bellevue lat
-    double longitudeGPS = -122.1925;  // Bellevue long
+    double latitudeGPS  = BELLEVUE_LAT;
+    double longitudeGPS = BELLEVUE_LONG;
     int maxMatchDistance = 10;
-
 
     // Mandatory empty constructor to instantiate frag (eg: screen orientation change)
     public MatchesFragment() {
@@ -280,8 +280,8 @@ public class MatchesFragment extends Fragment {
     private final LocationListener locationListenerGPS = new LocationListener() {
 
         public void onLocationChanged(Location location) {
-            location.getLongitude();
-            location.getLatitude();
+            latitudeGPS = location.getLatitude();
+            longitudeGPS = location.getLongitude();
 
             // adapt content when location changed
             ContentAdapter adapter = new ContentAdapter(recyclerView.getContext());

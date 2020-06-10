@@ -13,8 +13,10 @@ public class Constants {
     static final String KEY_STR_YEAR = "1980";
 
     static final String LIKED = "liked";
-    static final String UID = "uid";
-    static final String MATCHES = "matches";
+
     static final Double METERS_TO_MILES = 1609.3440057765;
+
+    static final double BELLEVUE_LAT  = 47.614444;
+    static final double BELLEVUE_LONG = -122.1925;
 
 }
