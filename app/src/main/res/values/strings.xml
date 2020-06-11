@@ -20,6 +20,7 @@
 
     <string name="age_invalid">You must be 18 to join.</string>
     <string name="like_button_message">You liked </string>
+    <string name="unlike_button_message">You unliked </string>
     <string name="daily_match_reminder">Daily Matches Reminder Time: </string>
     <string name="max_search_dist">Maximum Distance Search (in Miles): </string>
     <string name="gender">Gender </string>
@@ -29,11 +30,12 @@
     <string name="privacy">Account Privacy Setting</string>
     <string name="radio_private">Private</string>
     <string name="radio_public">Public</string>
-    <string name="age_interest">Age Interest Range Between Ages</string>
+    <string name="age_interest">My Match Interest Range Is Between Ages</string>
     <string name="between">Between Ages </string>
     <string name="and">and </string>
     <string name="save">Save</string>
     <string name="time_hint">12:00</string>
+    <string name="time_button">Select time</string>
     <string name="distance_hint">20 miles</string>
     <string name="age_hint_lo">20</string>
     <string name="age_hint_hi">35</string>

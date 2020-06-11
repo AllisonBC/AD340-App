@@ -19,4 +19,7 @@ public class Constants {
     static final double BELLEVUE_LAT  = 47.614444;
     static final double BELLEVUE_LONG = -122.1925;
 
+    static final int MAX_AGE = 109;
+    static final int MIN_AGE = 18;
+
 }

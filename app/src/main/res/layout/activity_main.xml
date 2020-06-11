@@ -67,12 +67,12 @@
         android:text="@string/dob_entry"
         android:layout_below="@+id/user_description" />
 
-    <EditText
-        android:id="@+id/user_dob"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/userDobHint"
-        android:layout_below="@+id/textViewDOB" />
+<!--    <EditText-->
+<!--        android:id="@+id/user_dob"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:hint="@string/userDobHint"-->
+<!--        android:layout_below="@+id/textViewDOB" />-->
 
     <DatePicker
         android:id="@+id/user_dob_picker"

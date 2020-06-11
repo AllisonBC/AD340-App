@@ -83,7 +83,7 @@ public class MatchesFragment extends Fragment {
         public TextView description;
         public ImageButton favoriteBtn;
         public String likedToastMsg;
-        public String unLikedToastMsg;
+        public String unlikedToastMsg;
 
         public String matchUid;
         public String matchName;
@@ -97,9 +97,8 @@ public class MatchesFragment extends Fragment {
             description = (TextView) itemView.findViewById(R.id.card_text);
             favoriteBtn = (ImageButton) itemView.findViewById(R.id.favorite_button);
 
-            viewModel = new MatchesFragmentViewModel();
+//            viewModel = new MatchesFragmentViewModel();
 
-            //toast display
             favoriteBtn.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
@@ -107,16 +106,18 @@ public class MatchesFragment extends Fragment {
                     // if isLike is true at onClick, it's getting un-liked
                     if (isLiked) {
                         favoriteBtn.setImageResource(R.drawable.button_normal);
-                        isLiked = !isLiked;
-                        item.setLike(isLiked);
+                        isLiked = false;
+                        item.setLike(false);
                         item.setUid(matchUid);
                         onMatchesFragmentInteraction(item);
                         Log.i(TAG, String.valueOf(item.getLike()));
+                        Toast toast = Toast.makeText(v.getContext(), unlikedToastMsg, Toast.LENGTH_SHORT);
+                        toast.show();
                     // if isLike is false at onClick, it's getting liked
                     } else {
                         favoriteBtn.setImageResource(R.drawable.button_pressed);
-                        isLiked = !isLiked;
-                        item.setLike(isLiked);
+                        isLiked = true;
+                        item.setLike(true);
                         item.setUid(matchUid);
                         onMatchesFragmentInteraction(item);
                         Log.i(TAG, String.valueOf(item.getLike()));
@@ -141,7 +142,7 @@ public class MatchesFragment extends Fragment {
 //            }
 //            a.recycle();
 
-    // Adapter to display recycler view
+    // Adapter connects data to RecyclerView and determines which ViewHolder is needed to display it
     public class ContentAdapter extends RecyclerView.Adapter<ViewHolder> {
 
         private ArrayList<String> userNames;
@@ -201,6 +202,7 @@ public class MatchesFragment extends Fragment {
             return new ViewHolder(LayoutInflater.from(parent.getContext()), parent);
         }
 
+        // onBindViewHolder is called for each ViewHolder to bind it to the adapter; this is where you pass data to ViewHolder
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
 //            holder.picture.setImageDrawable(profilePhotos[position % profilePhotos.length]);
@@ -208,17 +210,24 @@ public class MatchesFragment extends Fragment {
             holder.name.setText(userNames.get(position));
             holder.matchUid = uid.get(position);
             holder.isLiked = liked.get(position);
+            holder.matchName = holder.name.getText().toString();
 
             //set if isLiked
             if(String.valueOf(holder.isLiked) == "true"){
                 holder.favoriteBtn.setImageResource(R.drawable.button_pressed);
+            } else {
+                holder.favoriteBtn.setImageResource(R.drawable.button_normal);
             }
 
             //TODO add message for unliking a match
-            holder.matchName = holder.name.getText().toString();//set name for each card
             StringBuilder likeBtnMsg = new StringBuilder(getString(R.string.like_button_message));
-            likeBtnMsg.append(holder.matchName);
+            likeBtnMsg.append(" " + holder.matchName);
             holder.likedToastMsg = likeBtnMsg.toString();
+
+            StringBuilder unlikeBtnMsg = new StringBuilder(getString(R.string.unlike_button_message));
+            unlikeBtnMsg.append(" " + holder.matchName);
+            holder.unlikedToastMsg = unlikeBtnMsg.toString();
+
 
             Log.i(TAG, "onBindViewHolder()" + position);
         }
@@ -320,7 +329,7 @@ public class MatchesFragment extends Fragment {
     }
 
     public void onMatchesFragmentInteraction(Match item) {
-        item.liked = true;
+        item.liked = !item.liked;
         // updateMatchLikeById located in FirebaseMatchModel
         viewModel.updateMatchLikeById(item);
     }

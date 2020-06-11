@@ -20,19 +20,18 @@ public class MatchesFragmentViewModel {
 
     public void getMatches(Consumer<ArrayList<Match>> responseCallback) {
         matchModel.getMatches((QuerySnapshot querySnapshot) -> {
-                    if (querySnapshot != null) {
-                        ArrayList<Match> matchList = new ArrayList<>();
-                        for (DocumentSnapshot matchSnapshot : querySnapshot.getDocuments()) {
-                            Match item = matchSnapshot.toObject(Match.class);
-                            assert item != null;
-                            item.uid = matchSnapshot.getId();
-                            matchList.add(item);
-                        }
-                        responseCallback.accept(matchList);
-                    }
-                },
-                (databaseError -> Log.i(TAG, "Error reading matches"))
-//                (databaseError -> System.out.println("Error reading matches: " + databaseError))
+            if (querySnapshot != null) {
+                ArrayList<Match> matchList = new ArrayList<>();
+                for (DocumentSnapshot matchSnapshot : querySnapshot.getDocuments()) {
+                    Match item = matchSnapshot.toObject(Match.class);
+                    assert item != null;
+                    item.uid = matchSnapshot.getId();
+                    matchList.add(item);
+                }
+                responseCallback.accept(matchList);
+            }
+        },
+        (databaseError -> Log.i(TAG, "Error reading matches"))
         );
     }
 

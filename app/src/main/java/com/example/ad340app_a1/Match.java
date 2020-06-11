@@ -39,17 +39,6 @@ public class Match implements Parcelable {
         }
     };
 
-//    // ???
-//    @Exclude
-//    public Map<String, Object> toMap() {
-//        HashMap<String, Object> result = new HashMap<>();
-//        //        result.put("title", title);
-//        result.put("uid", uid);
-//        result.put("name", name);
-//        result.put("true", liked);
-//        return result;
-//    }
-
     public String getImageUrl() {
         return imageUrl;
     }
