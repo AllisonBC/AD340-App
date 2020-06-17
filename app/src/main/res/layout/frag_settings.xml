@@ -8,6 +8,7 @@
 
 <!--    match reminder time-->
     <TextView
+        android:id="@+id/tvReminder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/daily_match_reminder" />
@@ -24,6 +25,7 @@
 
 <!--    gender-->
     <TextView
+        android:id="@+id/tvGender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/gender" />
@@ -36,6 +38,7 @@
 
 <!--    distance-->
     <TextView
+        android:id="@+id/tvDistance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/max_search_dist" />
@@ -47,9 +50,11 @@
 
 <!--    privacy-->
     <TextView
+        android:id="@+id/tvPrivacy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/privacy" />
+
     <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/radio_privacy_group"
         android:layout_width="match_parent"
@@ -71,6 +76,7 @@
 
 <!--    age interest range-->
     <TextView
+        android:id="@+id/tvInterestRange"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/age_interest" />

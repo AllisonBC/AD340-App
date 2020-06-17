@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/card_title_height"
             android:layout_alignBottom="@+id/card_image"
-            android:layout_marginLeft="@dimen/md_keylines"
+            android:layout_marginStart="@dimen/md_keylines"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:textColor="@color/white"
             tools:text="@string/match_name" />
@@ -50,12 +50,12 @@
             tools:text="@string/user_desc" />
 
         <ImageButton
-            android:id="@+id/favorite_button"
+            android:id="@+id/like_button"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="@dimen/cards_button_width"
             android:layout_height="@dimen/cards_button_height"
             android:layout_below="@+id/card_text"
-            android:layout_marginRight="@dimen/md_keylines" />
+            android:layout_marginEnd="@dimen/md_keylines" />
 
 <!--FOR TESTING DISTANCE LOCATION-->
         <TextView

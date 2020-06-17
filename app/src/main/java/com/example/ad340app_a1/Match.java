@@ -7,6 +7,7 @@ import com.google.firebase.database.IgnoreExtraProperties;
 
 @IgnoreExtraProperties
 public class Match implements Parcelable {
+
     public String uid;
     public String name;
     public String imageUrl;
@@ -27,6 +28,7 @@ public class Match implements Parcelable {
         longitude = in.readString();
     }
 
+
     public static final Creator<Match> CREATOR = new Creator<Match>() {
         @Override
         public Match createFromParcel(Parcel in) {
@@ -39,38 +41,31 @@ public class Match implements Parcelable {
         }
     };
 
+
+    // Getters
     public String getImageUrl() {
         return imageUrl;
     }
-
-    // Getters
     public String getUid() {
         return uid;
     }
-
     public String getName() {
         return name;
     }
-
     public boolean getLike() {
         return liked;
     }
-
     public String getLat() {
         return lat;
     }
-
     public String getLongitude() {
         return longitude;
     }
-
-
 
     // Setters
     public void setLike(boolean liked) {
         this.liked = liked;
     }
-
     public void setUid(String uid) {
         this.uid = uid;
     }

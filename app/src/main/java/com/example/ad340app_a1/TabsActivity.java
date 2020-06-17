@@ -29,9 +29,6 @@ public class TabsActivity extends AppCompatActivity implements OnMatchesFragment
         Intent intent = getIntent();
         Bundle b = intent.getExtras();
 
-//        // Add Toolbar to main screen
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
 
         if (b!=null) {
             // Setting ViewPager for each Tab

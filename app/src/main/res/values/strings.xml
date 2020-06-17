@@ -3,6 +3,7 @@
     <string name="welcome">Welcome!</string>
     <string name="submit">SUBMIT</string>
     <string name="emailHint">Email</string>
+    <string name="emailTest">email@email.com</string>
     <string name="nameHint">Name</string>
     <string name="usernameHint">Username</string>
     <string name="dob_entry">Select your date of birth: </string>

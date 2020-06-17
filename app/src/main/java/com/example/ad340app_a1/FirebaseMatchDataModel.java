@@ -23,7 +23,8 @@ public class FirebaseMatchDataModel {
         listeners = new ArrayList<>();
     }
 
-    public void getMatches(Consumer<QuerySnapshot> dataChangedCallback, Consumer<FirebaseFirestoreException> dataErrorCallback) {
+    public void getMatches(Consumer<QuerySnapshot> dataChangedCallback,
+                           Consumer<FirebaseFirestoreException> dataErrorCallback) {
         ListenerRegistration listener = db.collection("matches")
                 .addSnapshotListener(((queryDocumentSnapshots, e) -> {
                     if (e != null) {
